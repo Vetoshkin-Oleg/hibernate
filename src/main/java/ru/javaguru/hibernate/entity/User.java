@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.javaguru.hibernate.converter.BirthdayConverter;
 
 import javax.persistence.*;
 
@@ -16,15 +15,16 @@ import javax.persistence.*;
 @Table(name = "users", schema = "public")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /*Второй вариант генерации
+    @GeneratedValue(generator = "user_gen", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "user_gen", sequenceName = "users_id_seq",
+            allocationSize = 1)*/
+    private Integer id;
     @Column(name = "username")
     private String userName;
-    @Column(name = "firstname")
-    private String firstName;
-    @Column(name = "lastname")
-    private String lastName;
-    @Convert(converter = BirthdayConverter.class)
-    @Column(name = "birth_date")
-    private Birthday birthDate;
+    @Embedded
+    private PersonalInfo personalInfo;
     @Enumerated(EnumType.STRING)
     private Role role;
 }
