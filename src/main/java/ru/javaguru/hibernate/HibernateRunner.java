@@ -3,10 +3,7 @@ package ru.javaguru.hibernate;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import ru.javaguru.hibernate.entity.Birthday;
-import ru.javaguru.hibernate.entity.PersonalInfo;
-import ru.javaguru.hibernate.entity.Role;
-import ru.javaguru.hibernate.entity.User;
+import ru.javaguru.hibernate.entity.*;
 import ru.javaguru.hibernate.util.HibernateUtil;
 
 import java.time.LocalDate;
@@ -16,9 +13,16 @@ import java.time.Month;
 public class HibernateRunner {
 
     public static void main(String[] args) {
+        Company company1 = Company.builder()
+                .name("Google")
+                .build();
 
-        User user = User.builder()
-                .userName("Ivan1@mail.com")
+        Company company2 = Company.builder()
+                .name("Yandex")
+                .build();
+
+        User user1 = User.builder()
+                .userName("Ivan@mail.com")
                 .personalInfo(PersonalInfo.builder()
                         .firstName("Ivan")
                         .lastName("Petrov")
@@ -26,26 +30,41 @@ public class HibernateRunner {
                                 LocalDate.of(2000, Month.DECEMBER, 21)))
                         .build())
                 .role(Role.ADMIN)
+                .company(company1)
                 .build();
-        System.out.println("************************************************");
-        log.info("User object is transient state: {} ", user);
-        System.out.println("************************************************");
+
+        User user2 = User.builder()
+                .userName("Petr@mail.com")
+                .personalInfo(PersonalInfo.builder()
+                        .firstName("Petr")
+                        .lastName("Ivanov")
+                        .birthDate(new Birthday(
+                                LocalDate.of(1999, Month.NOVEMBER, 22)))
+                        .build())
+                .role(Role.USER)
+                .company(company2)
+                .build();
+
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
             try (Session session1 = sessionFactory.openSession()) {
                 session1.beginTransaction();
-                session1.saveOrUpdate(user);
 
-                /*user.setFirstName("Anna");
-                System.out.println("************************************************");
-                log.warn("User firstName is changed: {} ", user);
+                session1.saveOrUpdate(user1);
+                session1.saveOrUpdate(user2);
+
+                /*var user = session1.get(User.class, 2L);
+                session1.delete(user);*/
+
+                /*var user = session1.get(User.class, 2L);
                 System.out.println(user);
-                System.out.println("************************************************");*/
+                System.out.println(user.getCompany().getName());*/
 
-                log.debug("User: {}, session: {} ", user, session1);
+                /*var company = session1.get(Company.class, 1);
+                System.out.println(company);*/
+
                 session1.getTransaction().commit();
             }
         } catch (Exception e) {
-            log.error("Exception occurred: ", e);
             throw e;
         }
     }
