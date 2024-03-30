@@ -8,7 +8,6 @@ import ru.javaguru.hibernate.util.HibernateUtil;
 
 public class HibernateRunnerTest {
 
-    /*YНЕ удалось добиться удаления записи из БД по условию*/
     @Test
     public void checkOrphanRemoval() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
