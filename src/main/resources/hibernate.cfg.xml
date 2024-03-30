@@ -15,6 +15,7 @@
     <property name="hibernate.current_session_context_class">thread</property>
     <mapping class="ru.javaguru.hibernate.entity.User"/>
     <mapping class="ru.javaguru.hibernate.entity.Company"/>
+    <mapping class="ru.javaguru.hibernate.entity.Profile"/>
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
