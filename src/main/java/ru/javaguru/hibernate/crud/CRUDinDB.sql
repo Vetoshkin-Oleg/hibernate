@@ -1,6 +1,8 @@
 drop table if exists public.company cascade;
 drop table if exists public.users cascade;
 drop table if exists public.profile cascade;
+drop table if exists public.chat cascade;
+drop table if exists public.users_chat cascade;
 
 create table if not exists public.company
 (
@@ -27,12 +29,18 @@ create table if not exists public.profile
     language char(2)
 );
 
-/*create table if not exists public.profile
+create table if not exists public.chat
 (
-    user_id bigint primary key references public.users(id),
-    street varchar(128),
-    language char(2)
-);*/
+    id bigserial primary key,
+    name varchar(64) not null unique
+);
+
+create table if not exists public.users_chat
+(
+    user_id bigint references public.users(id),
+    chat_id bigint references public.chat(id),
+    primary key (user_id, chat_id)
+);
 
 create sequence users_id_seq
     owned by public.users.id;

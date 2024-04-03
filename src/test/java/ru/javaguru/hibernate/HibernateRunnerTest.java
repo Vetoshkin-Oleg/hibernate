@@ -2,12 +2,30 @@ package ru.javaguru.hibernate;
 
 import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
+import ru.javaguru.hibernate.entity.Chat;
 import ru.javaguru.hibernate.entity.Company;
 import ru.javaguru.hibernate.entity.Profile;
 import ru.javaguru.hibernate.entity.User;
 import ru.javaguru.hibernate.util.HibernateUtil;
 
 public class HibernateRunnerTest {
+    @Test
+    public void checkManyToMany() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Chat chat = Chat.builder()
+                .name("javaguru")
+                .build();
+
+        User user = session.get(User.class, 1L);
+        user.addChat(chat);
+        session.save(chat);
+
+        session.getTransaction().commit();
+    }
+
     @Test
     public void checkOneToOne() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();

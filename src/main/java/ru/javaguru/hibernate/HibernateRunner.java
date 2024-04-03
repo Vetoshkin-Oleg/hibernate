@@ -49,23 +49,14 @@ public class HibernateRunner {
             try (Session session1 = sessionFactory.openSession()) {
                 session1.beginTransaction();
 
+                session1.saveOrUpdate(company1);
+                session1.saveOrUpdate(company2);
+
                 session1.saveOrUpdate(user1);
                 session1.saveOrUpdate(user2);
 
-                /*var user = session1.get(User.class, 2L);
-                session1.delete(user);*/
-
-                /*var user = session1.get(User.class, 2L);
-                System.out.println(user);
-                System.out.println(user.getCompany().getName());*/
-
-                /*var company = session1.get(Company.class, 1);
-                System.out.println(company);*/
-
                 session1.getTransaction().commit();
             }
-        } catch (Exception e) {
-            throw e;
         }
     }
 }
