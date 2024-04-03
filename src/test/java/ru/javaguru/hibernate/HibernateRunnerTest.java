@@ -9,6 +9,18 @@ import java.time.Instant;
 
 public class HibernateRunnerTest {
     @Test
+    public void checkH2() {
+        @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
+        @Cleanup var session = sessionFactory.openSession();
+        session.beginTransaction();
+        Company company = Company.builder()
+                .name("Mail")
+                .build();
+        session.save(company);
+        session.getTransaction().commit();
+    }
+
+    @Test
     public void checkManyToMany() {
         @Cleanup var sessionFactory = HibernateUtil.buildSessionFactory();
         @Cleanup var session = sessionFactory.openSession();
@@ -109,8 +121,8 @@ public class HibernateRunnerTest {
         var company = session.get(Company.class, 1);
         System.out.println(company.getName());
         /*НЕ забыть написать строку
-        * @ToString(exclude = "company")
-        * в классе User для успешного прохождения теста. Объяснение этому на 27й минуте видео.*/
+         * @ToString(exclude = "company")
+         * в классе User для успешного прохождения теста. Объяснение этому на 27й минуте видео.*/
         System.out.println(company.getUsers());
 
         session.getTransaction().commit();
