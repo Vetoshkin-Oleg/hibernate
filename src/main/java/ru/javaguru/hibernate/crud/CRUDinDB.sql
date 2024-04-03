@@ -37,9 +37,11 @@ create table if not exists public.chat
 
 create table if not exists public.users_chat
 (
+    id bigserial primary key,
     user_id bigint references public.users(id),
     chat_id bigint references public.chat(id),
-    primary key (user_id, chat_id)
+    created_at timestamp not null,
+    created_by varchar(128) not null
 );
 
 create sequence users_id_seq

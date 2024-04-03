@@ -17,6 +17,7 @@
     <mapping class="ru.javaguru.hibernate.entity.Company"/>
     <mapping class="ru.javaguru.hibernate.entity.Profile"/>
     <mapping class="ru.javaguru.hibernate.entity.Chat"/>
+    <mapping class="ru.javaguru.hibernate.entity.UserChat"/>
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->

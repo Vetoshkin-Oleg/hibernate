@@ -2,11 +2,10 @@ package ru.javaguru.hibernate;
 
 import lombok.Cleanup;
 import org.junit.jupiter.api.Test;
-import ru.javaguru.hibernate.entity.Chat;
-import ru.javaguru.hibernate.entity.Company;
-import ru.javaguru.hibernate.entity.Profile;
-import ru.javaguru.hibernate.entity.User;
+import ru.javaguru.hibernate.entity.*;
 import ru.javaguru.hibernate.util.HibernateUtil;
+
+import java.time.Instant;
 
 public class HibernateRunnerTest {
     @Test
@@ -18,10 +17,17 @@ public class HibernateRunnerTest {
         Chat chat = Chat.builder()
                 .name("javaguru")
                 .build();
-
-        User user = session.get(User.class, 1L);
-        user.addChat(chat);
         session.save(chat);
+
+        User user = session.get(User.class, 2L);
+
+        UserChat userChat = UserChat.builder()
+                .createdAt(Instant.now())
+                .createdBy("Darth Vader")
+                .build();
+        userChat.setChat(chat);
+        userChat.setUser(user);
+        session.save(userChat);
 
         session.getTransaction().commit();
     }
