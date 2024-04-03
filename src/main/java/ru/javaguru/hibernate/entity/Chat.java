@@ -13,10 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Chat {
-    @Id
+public class Chat extends BaseEntity<Long> {
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;*/
 
     @Column(unique = true, nullable = false)
     private String name;

@@ -9,6 +9,7 @@
     <property name="connection.username">postgres</property>
     <property name="connection.password">password</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.show_sql">true</property>
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
@@ -20,6 +21,5 @@
     <mapping class="ru.javaguru.hibernate.entity.UserChat"/>
 
     <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>
