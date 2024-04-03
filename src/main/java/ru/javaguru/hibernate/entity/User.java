@@ -11,12 +11,13 @@ import java.util.List;
 @AllArgsConstructor
 @ToString(exclude = {"company", "profile", "userChats"})
 @EqualsAndHashCode(of = "userName")
-@Builder
+//@Builder
 @Entity
 @Table(name = "users", schema = "public")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "username", nullable = false, unique = true)
     private String userName;
@@ -32,7 +33,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Profile profile;
 
-    @Builder.Default
+//    @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
 }

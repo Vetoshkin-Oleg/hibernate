@@ -19,6 +19,8 @@
     <mapping class="ru.javaguru.hibernate.entity.Profile"/>
     <mapping class="ru.javaguru.hibernate.entity.Chat"/>
     <mapping class="ru.javaguru.hibernate.entity.UserChat"/>
+    <mapping class="ru.javaguru.hibernate.entity.Programmer"/>
+    <mapping class="ru.javaguru.hibernate.entity.Manager"/>
 
     <!-- DB schema will be updated if needed -->
   </session-factory>
