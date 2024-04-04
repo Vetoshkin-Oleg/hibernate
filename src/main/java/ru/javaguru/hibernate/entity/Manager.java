@@ -13,7 +13,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DiscriminatorValue("manager")
 public class Manager extends User {
     private String project;
 
