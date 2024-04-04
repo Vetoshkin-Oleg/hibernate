@@ -14,10 +14,11 @@ import java.util.List;
 //@Builder
 @Entity
 @Table(name = "users", schema = "public")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "username", nullable = false, unique = true)
     private String userName;

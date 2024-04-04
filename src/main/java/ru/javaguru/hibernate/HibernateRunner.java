@@ -12,7 +12,7 @@ import java.time.Month;
 @Slf4j
 public class HibernateRunner {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Company company1 = Company.builder()
                 .name("Google")
                 .build();
@@ -58,5 +58,5 @@ public class HibernateRunner {
                 session1.getTransaction().commit();
             }
         }
-    }
+    }*/
 }

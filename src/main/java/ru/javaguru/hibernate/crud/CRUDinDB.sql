@@ -3,6 +3,8 @@ drop table if exists public.users cascade;
 drop table if exists public.profile cascade;
 drop table if exists public.chat cascade;
 drop table if exists public.users_chat cascade;
+drop table if exists public.programmer cascade;
+drop table if exists public.manager cascade;
 
 create table if not exists public.company
 (
