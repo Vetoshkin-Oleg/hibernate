@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(name = "findUserByName", query = """
+        select u from User u
+                where u.personalInfo.firstName = :firstname
+                """)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

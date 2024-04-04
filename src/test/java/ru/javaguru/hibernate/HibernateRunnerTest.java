@@ -40,12 +40,10 @@ public class HibernateRunnerTest {
         session.saveOrUpdate(profile2);
 
         /*До выполнения нижеследующего блока данные уже должны быть сохранены в БД:
-         * как вариант - запустить тест дважды: при первом запуске закомментировать createQuery*/
+         * как вариант - запустить тест дважды:
+         * при первом запуске закомментировать createQuery (createNamedQuery)*/
         String name = "Anna";
-        var users = session.createQuery("""
-                select u from User u
-                        where u.personalInfo.firstName = :firstname
-                        """)
+        var users = session.createNamedQuery("findUserByName")
                 .setParameter("firstname", name)
                 .list();
         System.out.println(users);
