@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class User {
+public class User extends BaseEntity<Long> implements Comparable<User> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +33,24 @@ public class User {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,
+    fetch = FetchType.LAZY)
     private Profile profile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<UserChat> userChats = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private List<UserChat> payments = new ArrayList<>();
+
+    @Override
+    public int compareTo(User o) {
+        return userName.compareTo(o.userName);
+    }
+
+    public String fullName() {
+        return getPersonalInfo().getFirstName() + " " + getPersonalInfo().getLastName();
+    }
 }

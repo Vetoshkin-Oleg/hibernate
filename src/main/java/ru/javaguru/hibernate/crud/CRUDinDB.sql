@@ -5,6 +5,7 @@ drop table if exists public.chat cascade;
 drop table if exists public.users_chat cascade;
 drop table if exists public.programmer cascade;
 drop table if exists public.manager cascade;
+drop table if exists public.payment cascade;
 
 create table if not exists public.company
 (

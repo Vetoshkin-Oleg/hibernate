@@ -40,7 +40,7 @@ class UserDaoTest {
 
         /*List<String> fullNames = results.stream().map(User::fullName).collect(Collectors.toList());
         assertThat(fullNames).containsExactlyInAnyOrder("Bill Gates", "Steve Jobs",
-                "Sergey Brin", "One One", "Two Two");*/
+                "Sergey Brin", "Tim Cook", "Diane Grande");*/
 
         session.getTransaction().commit();
     }
