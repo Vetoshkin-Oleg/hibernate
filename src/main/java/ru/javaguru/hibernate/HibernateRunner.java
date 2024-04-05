@@ -18,20 +18,14 @@ public class HibernateRunner {
 
     public static void main(String[] args) {
         try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-             Session session = sessionFactory.openSession();
-             Session session1 = sessionFactory.openSession()) {
+             Session session = sessionFactory.openSession()) {
             TestDataImporter.importData(sessionFactory);
             session.beginTransaction();
-            session1.beginTransaction();
 
-            var payment = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
+            var payment = session.find(Payment.class, 1L);
             payment.setAmount(payment.getAmount() + 10);
 
-            var samePayment = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
-            samePayment.setAmount(payment.getAmount() + 20);
-
             session.getTransaction().commit();
-            session1.getTransaction().commit();
         }
     }
 }
