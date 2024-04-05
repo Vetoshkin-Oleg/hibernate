@@ -8,6 +8,7 @@ import ru.javaguru.hibernate.entity.*;
 import ru.javaguru.hibernate.util.HibernateUtil;
 import ru.javaguru.hibernate.util.TestDataImporter;
 
+import javax.persistence.LockModeType;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Map;
@@ -16,31 +17,21 @@ import java.util.Map;
 public class HibernateRunner {
 
     public static void main(String[] args) {
-        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory()) {
-            try (Session session = sessionFactory.openSession()) {
-                TestDataImporter.importData(sessionFactory);
-                session.beginTransaction();
+        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+             Session session = sessionFactory.openSession();
+             Session session1 = sessionFactory.openSession()) {
+            TestDataImporter.importData(sessionFactory);
+            session.beginTransaction();
+            session1.beginTransaction();
 
-                var userGraph = session.createEntityGraph(User.class);
-                userGraph.addAttributeNodes("company", "userChats");
-                var userChatsSubgraph = userGraph.addSubgraph("userChats", UserChat.class);
-                userChatsSubgraph.addAttributeNodes("chat");
+            var payment = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
+            payment.setAmount(payment.getAmount() + 10);
 
-                Map<String, Object> properties = Map.of(
-//                        GraphSemantic.LOAD.getJpaHintName(), session.getEntityGraph("WithCompanyAndChat")
-                        GraphSemantic.LOAD.getJpaHintName(), userGraph
-                );
-                var user = session.find(User.class, 1L, properties);
-                System.out.println(user.getCompany().getName());
-                System.out.println(user.getUserChats().size());
+            var samePayment = session.find(Payment.class, 1L, LockModeType.OPTIMISTIC);
+            samePayment.setAmount(payment.getAmount() + 20);
 
-                var users = session.createQuery(
-                                "select u from User u", User.class)
-                        .setHint(GraphSemantic.LOAD.getJpaHintName(), userGraph)
-                        .list();
-
-                session.getTransaction().commit();
-            }
+            session.getTransaction().commit();
+            session1.getTransaction().commit();
         }
     }
 }
