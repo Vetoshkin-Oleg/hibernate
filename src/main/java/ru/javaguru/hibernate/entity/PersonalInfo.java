@@ -9,6 +9,7 @@ import ru.javaguru.hibernate.converter.BirthdayConverter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -25,7 +26,9 @@ public class PersonalInfo implements Serializable {
     private String firstName;
     @Column(name = "lastname")
     private String lastName;
+
     @Convert(converter = BirthdayConverter.class)
     @Column(name = "birth_date")
+    @NotNull
     private Birthday birthDate;
 }
