@@ -14,9 +14,9 @@ import java.util.List;
 @Builder
 @Entity
 public class Chat implements BaseEntity<Long> {
-/*    @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String name;
@@ -24,4 +24,13 @@ public class Chat implements BaseEntity<Long> {
     @Builder.Default
     @OneToMany(mappedBy = "chat")
     private List<UserChat> userChats = new ArrayList<>();
+
+    @Override
+    public Long getId() {
+        return null;
+    }
+
+    @Override
+    public void setId(Long id) {
+    }
 }
