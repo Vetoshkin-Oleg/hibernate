@@ -17,14 +17,19 @@ import java.util.Map;
 public class HibernateRunner {
 
     public static void main(String[] args) {
-        try (SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            TestDataImporter.importData(sessionFactory);
+        User user = null;
+        SessionFactory sessionFactory = HibernateUtil.buildSessionFactory();
+        try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-
-            var payment = session.find(Payment.class, 1L);
-            payment.setAmount(payment.getAmount() + 10);
-
+            user = session.find(User.class, 1L);
+            var user1 = session.find(User.class, 1L);
+            System.out.println(user.getCompany());
+            session.getTransaction().commit();
+        }
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            var user2 = session.find(User.class, 1L);
+            System.out.println(user2.getCompany());
             session.getTransaction().commit();
         }
     }

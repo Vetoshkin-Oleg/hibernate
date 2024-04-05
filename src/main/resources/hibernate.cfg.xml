@@ -9,11 +9,13 @@
     <property name="connection.username">postgres</property>
     <property name="connection.password">password</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.show_sql">true</property>
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <property name="hibernate.cache.region_prefix.factory_class">org.hibernate.cache.jcache.internal.JCacheRegionFactory</property>
+<!--    <property name="hibernate.hbm2ddl.auto">create</property>-->
     <mapping class="ru.javaguru.hibernate.entity.User"/>
     <mapping class="ru.javaguru.hibernate.entity.Company"/>
     <mapping class="ru.javaguru.hibernate.entity.Profile"/>

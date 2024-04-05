@@ -17,8 +17,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 @AllArgsConstructor
 @Builder
 @Entity
-@OptimisticLocking(type = OptimisticLockType.VERSION)
-@Audited
 public class Payment implements BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +30,5 @@ public class Payment implements BaseEntity<Long> {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id")
-    @NotAudited
     private User receiver;
 }

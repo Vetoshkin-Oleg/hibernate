@@ -1,6 +1,7 @@
 package ru.javaguru.hibernate.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = "name")
 @Builder
 @Entity
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
