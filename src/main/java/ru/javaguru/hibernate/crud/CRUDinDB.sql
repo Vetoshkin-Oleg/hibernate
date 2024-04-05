@@ -47,5 +47,13 @@ create table if not exists public.users_chat
     created_by varchar(128) not null
 );
 
+create table if not exists public.payment
+(
+    id bigserial primary key,
+    amount serial not null,
+    version bigserial,
+    receiver_id int references users(id)
+);
+
 create sequence users_id_seq
     owned by public.users.id;

@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users", schema = "public")
-public class User extends BaseEntity<Long> implements Comparable<User> {
+public class User implements Comparable<User>, BaseEntity<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

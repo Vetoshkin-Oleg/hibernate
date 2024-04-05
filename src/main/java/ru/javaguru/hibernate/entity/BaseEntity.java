@@ -6,9 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
-@MappedSuperclass
-public class BaseEntity<T extends Serializable> {
-    @Id
+public interface BaseEntity<T extends Serializable> {
+    /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private T id;
+    private T id;*/
 }
